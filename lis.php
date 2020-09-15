@@ -25,7 +25,7 @@ function read_from_tokens (&$tokens) {
 function get_env ($k, $env) {
 	if(isset($env[$k])) return $env[$k];
 	elseif(isset($env["parent"])) return get_env($k, $env["parent"]);
-	return NULL;
+	return $k;
 }
 function _read ($prompt) {
 	readline_add_history($str = readline($prompt));
