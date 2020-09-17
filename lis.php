@@ -51,6 +51,7 @@ function _eval ($exp, &$env) {
 		foreach($exp as $i => $o)
 			$exp[$i] = _eval($o, $env);
 		$proc = array_shift($exp);
+		if($proc[0] != "closure") return $exp;
 		foreach($proc[2] as $i => $f)
 			$proc[1][$f] = $exp[$i];
 		return _eval($proc[3], $proc[1]);
