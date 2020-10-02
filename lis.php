@@ -37,23 +37,19 @@ function _read ($prompt) {
 function _eval ($exp, &$env) {
 	if(!is_array($exp))
 		return get_env($exp, $env);
-	elseif("eq?" == $exp[0])
-		return _eval($exp[1], $env) == _eval($exp[2], $env);
 	elseif("define" == $exp[0])
 		return $env[$exp[1]] = _eval($exp[2], $env);
 	elseif("if" == $exp[0])
 		return _eval($exp[_eval($exp[1], $env) ? 2 : 3], $env);
 	elseif("lambda" == $exp[0])
 		return ["closure", ["parent" => &$env], $exp[1], $exp[2]];
-	elseif("quote" == $exp[0])
-		return $exp[1];
 	else { /* Apply */
 		foreach($exp as $i => $o)
 			$exp[$i] = _eval($o, $env);
-		$proc = array_shift($exp);
+		$proc = $exp[0];
 		if($proc[0] != "closure") return $exp;
 		foreach($proc[2] as $i => $f)
-			$proc[1][$f] = $exp[$i];
+			$proc[1][$f] = $exp[$i+1];
 		return _eval($proc[3], $proc[1]);
 	}
 }
