@@ -37,10 +37,8 @@ function _read ($prompt) {
 function _eval ($exp, &$env) {
 	if(!is_array($exp))
 		return get_env($exp, $env);
-	elseif("define" == $exp[0])
+	elseif("label" == $exp[0])
 		return $env[$exp[1]] = _eval($exp[2], $env);
-	elseif("if" == $exp[0])
-		return _eval($exp[_eval($exp[1], $env) ? 2 : 3], $env);
 	elseif("lambda" == $exp[0])
 		return ["closure", ["parent" => &$env], $exp[1], $exp[2]];
 	else { /* Apply */
