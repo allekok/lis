@@ -1,7 +1,7 @@
 <?php
 /*
    A Lisp Interpreter Inspired by Norvig's lispy: https://norvig.com/lispy.html 
-   Copyright (C) 2020 allekok.
+   Copyright (C) 2020-2021 allekok.
    Author: Payam <payambapiri.97@gmail.com>
    License: MIT License 
  */
