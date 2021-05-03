@@ -27,7 +27,7 @@ function read_from_tokens(&$tokens) {
 	else
 		return $token;
 }
-function _eval ($exp, &$env) {
+function _eval($exp, &$env) {
 	if(!is_array($exp))
 		return get_env($exp, $env);
 	elseif("label" == $exp[0])
@@ -50,13 +50,13 @@ function get_env($key, $env) {
 		return get_env($key, $env["parent"]);
 	return $key;
 }
-function _print ($x) {
+function _print($x) {
 	if(is_array($x))
 		print_r($x);
 	else
 		echo "$x\n";
 }
-function repl ($prompt, $env=[]) {
+function repl($prompt, $env=[]) {
 	for(;;)	_print(_eval(_read($prompt), $env));
 }
 ?>
