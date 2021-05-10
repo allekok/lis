@@ -10,9 +10,9 @@ repl("> ");
 
 /* Functions */
 function _read($prompt) {
-	readline_add_history($str = readline($prompt));
-	$tokens = preg_split("/\s+/", preg_replace("/([\(\)])/", " $1 ", $str),
-			    -1, PREG_SPLIT_NO_EMPTY);
+	$tokens = preg_split(
+		"/\s+/", preg_replace("/([\(\)])/", " $1 ", readline($prompt)),
+		-1, PREG_SPLIT_NO_EMPTY);
 	return read_from_tokens($tokens);
 }
 function read_from_tokens(&$tokens) {
@@ -31,16 +31,15 @@ function _eval($exp, &$env) {
 	if(!is_array($exp))
 		return get_env($exp, $env);
 	elseif("label" == $exp[0])
-		return $env[$exp[1]] = _eval($exp[2], $env);
+		$env[$exp[1]] = _eval($exp[2], $env);
 	elseif("lambda" == $exp[0])
 		return ["closure", ["parent" => &$env], $exp[1], $exp[2]];
 	else {
 		foreach($exp as $i => $o)
 		$exp[$i] = _eval($o, $env);
-		$proc = array_shift($exp);
-		foreach($proc[2] as $i => $f)
-		$proc[1][$f] = $exp[$i];
-		return _eval($proc[3], $proc[1]);
+		foreach($exp[0][2] as $i => $f)
+		$exp[0][1][$f] = $exp[$i + 1];
+		return _eval($exp[0][3], $exp[0][1]);
 	}
 }
 function get_env($key, $env) {
@@ -52,9 +51,8 @@ function get_env($key, $env) {
 }
 function _print($x) {
 	if(is_array($x))
-		print_r($x);
-	else
-		echo "$x\n";
+		return print_r($x);
+	echo "$x\n";
 }
 function repl($prompt, $env=[]) {
 	for(;;)	_print(_eval(_read($prompt), $env));
