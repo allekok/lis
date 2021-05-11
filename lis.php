@@ -35,10 +35,9 @@ function _eval($exp, &$env) {
 	elseif("lambda" == $exp[0])
 		return ["closure", ["parent" => &$env], $exp[1], $exp[2]];
 	else {
-		foreach($exp as $i => $o)
-		$exp[$i] = _eval($o, $env);
+		$exp[0] = _eval($exp[0], $env);
 		foreach($exp[0][2] as $i => $f)
-		$exp[0][1][$f] = $exp[$i + 1];
+		$exp[0][1][$f] = _eval($exp[$i + 1], $env);
 		return _eval($exp[0][3], $exp[0][1]);
 	}
 }
