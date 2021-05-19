@@ -1,14 +1,6 @@
 <?php
-/*
-   A Lisp Interpreter Inspired by Norvig's lispy: https://norvig.com/lispy.html 
-   Copyright (C) 2020-2021 allekok.
-   Author: Payam <payambapiri.97@gmail.com>
-   License: MIT License 
- */
-
 repl("> ");
 
-/* Functions */
 function _read($prompt) {
 	$tokens = preg_split(
 		"/\s+/", preg_replace("/([\(\)])/", " $1 ", readline($prompt)),
@@ -33,12 +25,12 @@ function _eval($exp, &$env) {
 	elseif("label" == $exp[0])
 		$env[$exp[1]] = _eval($exp[2], $env);
 	elseif("lambda" == $exp[0])
-		return ["closure", ["dad" => &$env], $exp[1], $exp[2]];
+		return [$exp[1], $exp[2], ["dad" => &$env]];
 	else {
 		$exp[0] = _eval($exp[0], $env);
-		foreach($exp[0][2] as $i => $f)
-		$exp[0][1][$f] = _eval($exp[$i + 1], $env);
-		return _eval($exp[0][3], $exp[0][1]);
+		foreach($exp[0][0] as $i => $f)
+		$exp[0][2][$f] = _eval($exp[$i + 1], $env);
+		return _eval($exp[0][1], $exp[0][2]);
 	}
 }
 function get($key, $env) {
