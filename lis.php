@@ -29,11 +29,11 @@ function read_from_tokens(&$tokens) {
 }
 function _eval($exp, &$env) {
 	if(!is_array($exp))
-		return get_env($exp, $env);
+		return get($exp, $env);
 	elseif("label" == $exp[0])
 		$env[$exp[1]] = _eval($exp[2], $env);
 	elseif("lambda" == $exp[0])
-		return ["closure", ["parent" => &$env], $exp[1], $exp[2]];
+		return ["closure", ["dad" => &$env], $exp[1], $exp[2]];
 	else {
 		$exp[0] = _eval($exp[0], $env);
 		foreach($exp[0][2] as $i => $f)
@@ -41,17 +41,13 @@ function _eval($exp, &$env) {
 		return _eval($exp[0][3], $exp[0][1]);
 	}
 }
-function get_env($key, $env) {
-	if(isset($env[$key]))
-		return $env[$key];
-	elseif(isset($env["parent"]))
-		return get_env($key, $env["parent"]);
-	return $key;
+function get($key, $env) {
+	return isset($env[$key]) ? $env[$key] :
+	       (isset($env["dad"]) ? get($key, $env["dad"]) : $key);
 }
 function _print($x) {
-	if(is_array($x))
-		return print_r($x);
-	echo "$x\n";
+	print_r($x);
+	if(!is_array($x)) echo "\n";
 }
 function repl($prompt, $env=[]) {
 	for(;;)	_print(_eval(_read($prompt), $env));
