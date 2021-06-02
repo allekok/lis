@@ -35,8 +35,7 @@ function get($key, $env) {
 	       (isset($env["dad"]) ? get($key, $env["dad"]) : $key);
 }
 function _print($x) {
-	print_r($x);
-	if(!is_array($x)) echo "\n";
+	is_array($x) ? print_r($x) : print("$x\n");
 }
 function repl($prompt, $env=[]) {
 	for(;;)	_print(_eval(_read($prompt), $env));
