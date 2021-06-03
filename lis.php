@@ -1,42 +1,36 @@
 <?php
-repl("> ");
-
-function _read($prompt) {
-	$tokens = preg_split(
-		"/\s+/", preg_replace("/([\(\)])/", " $1 ", readline($prompt)),
+REPL("> ");
+function R($P) {
+	$T = preg_split(
+		"/\s+/", preg_replace("/([\(\)])/", " $1 ", readline($P)),
 		-1, PREG_SPLIT_NO_EMPTY);
-	return read_from_tokens($tokens);
+	return AST($T);
 }
-function read_from_tokens(&$tokens) {
-	$token = array_shift($tokens);
-	if($token == "(") {
-		$L = [];
-		while($tokens[0] != ")")
-			$L[] = read_from_tokens($tokens);
-		array_shift($tokens);
-		return $L;
-	}
-	return $token;
+function AST(&$T) {
+	if(($t = array_shift($T)) != "(")
+		return $t;
+	$L = [];
+	while($T[0] != ")")
+		$L[] = AST($T);
+	array_shift($T);
+	return $L;
 }
-function _eval($E, &$A) {
-	if(!is_array($E))
-		return get($E, $A);
-	elseif("label" == $E[0])
-		return $A[$E[1]] = _eval($E[2], $A);
-	elseif("lambda" == $E[0])
-		return [$E[1], $E[2], ["dad" => &$A]];
-	$E[0] = _eval($E[0], $A);
-	foreach($E[0][0] as $i => $f)
-	$E[0][2][$f] = _eval($E[$i + 1], $A);
-	return _eval($E[0][1], $E[0][2]);
+function E($X, &$E) {
+	if(!is_array($X))
+		return @($E[$X] ? $E[$X] : ($E[".."] ? E($X, $E[".."]) : $X));
+	elseif("label" == $X[0])
+		return $E[$X[1]] = E($X[2], $E);
+	elseif("lambda" == $X[0])
+		return [$X[1], $X[2], [".." => &$E]];
+	$X[0] = E($X[0], $E);
+	foreach($X[0][0] as $i => $f)
+	$X[0][2][$f] = E($X[$i + 1], $E);
+	return E($X[0][1], $X[0][2]);
 }
-function get($K, $A) {
-	return @($A[$K] ? $A[$K] : ($A["dad"] ? get($K, $A["dad"]) : $K));
+function P($X) {
+	is_array($X) ? print_r($X) : print("$X\n");
 }
-function _print($x) {
-	is_array($x) ? print_r($x) : print("$x\n");
-}
-function repl($prompt, $A=[]) {
-	for(;;)	_print(_eval(_read($prompt), $A));
+function REPL($P, $E=[]) {
+	for(;;)	P(E(R($P),$E));
 }
 ?>
