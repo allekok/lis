@@ -29,4 +29,3 @@ function E($X, &$E) {
 }
 function P($X) { is_array($X) ? print_r($X) : print("$X\n"); }
 function REPL($P, $E=[]) { for(;;) P(E(R($P),$E)); }
-?>
