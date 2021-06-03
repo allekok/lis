@@ -27,10 +27,6 @@ function E($X, &$E) {
 	$X[0][2][$f] = E($X[$i + 1], $E);
 	return E($X[0][1], $X[0][2]);
 }
-function P($X) {
-	is_array($X) ? print_r($X) : print("$X\n");
-}
-function REPL($P, $E=[]) {
-	for(;;)	P(E(R($P),$E));
-}
+function P($X) { is_array($X) ? print_r($X) : print("$X\n"); }
+function REPL($P, $E=[]) { for(;;) P(E(R($P),$E)); }
 ?>
