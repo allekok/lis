@@ -17,7 +17,7 @@ function AST(&$T) {
 }
 function E($X, &$E) {
 	if(!is_array($X))
-		return @($E[$X] ? $E[$X] : ($E[".."] ? E($X, $E[".."]) : $X));
+		return @$E[$X] ? $E[$X] : (@$E[".."] ? E($X, $E[".."]) : $X);
 	elseif("label" == $X[0])
 		return $E[$X[1]] = E($X[2], $E);
 	elseif("lambda" == $X[0])
