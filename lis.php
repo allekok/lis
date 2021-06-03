@@ -2,7 +2,7 @@
 REPL("> ");
 function R($P) {
 	$T = preg_split(
-		"/\s+/", preg_replace("/([\(\)])/", " $1 ", readline($P)),
+		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
 		-1, PREG_SPLIT_NO_EMPTY);
 	return AST($T);
 }
