@@ -1,5 +1,4 @@
-<?php
-REPL("> ");
+<?php REPL("> ");
 function R($P) {
 	$T = preg_split(
 		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
