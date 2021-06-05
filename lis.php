@@ -1,14 +1,14 @@
 <?php L("> ");
-function R($P) {
-	return @T(preg_split(
-		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
-		-1, PREG_SPLIT_NO_EMPTY));
-}
 function T(&$T) {
 	if(($t = array_shift($T)) != "(") return $t;
 	while($T[0] != ")") $L[] = T($T);
 	array_shift($T);
 	return $L;
+}
+function R($P) {
+	return @T(preg_split(
+		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
+		-1, PREG_SPLIT_NO_EMPTY));
 }
 function E($X, &$E) {
 	if(!is_array($X))
@@ -19,5 +19,4 @@ function E($X, &$E) {
 	foreach($X[0][0] as $i => $f) $X[0][2][$f] = E($X[$i + 1], $E);
 	return E($X[0][1], $X[0][2]);
 }
-function P($X) { is_array($X) ? print_r($X) : print("$X\n"); }
-function L($P, $E=[]) { for(;;) P(E(R($P),$E)); }
+function L($P, $E=[]) { for(;;) echo print_r(E(R($P),$E), 1), "\n"; }
