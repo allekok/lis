@@ -1,9 +1,8 @@
 <?php REPL("> ");
 function R($P) {
-	$T = preg_split(
+	return @AST(preg_split(
 		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
-		-1, PREG_SPLIT_NO_EMPTY);
-	return AST($T);
+		-1, PREG_SPLIT_NO_EMPTY));
 }
 function AST(&$T) {
 	if(($t = array_shift($T)) != "(") return $t;
