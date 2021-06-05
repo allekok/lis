@@ -1,12 +1,12 @@
-<?php REPL("> ");
+<?php L("> ");
 function R($P) {
-	return @AST(preg_split(
+	return @T(preg_split(
 		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
 		-1, PREG_SPLIT_NO_EMPTY));
 }
-function AST(&$T) {
+function T(&$T) {
 	if(($t = array_shift($T)) != "(") return $t;
-	while($T[0] != ")") $L[] = AST($T);
+	while($T[0] != ")") $L[] = T($T);
 	array_shift($T);
 	return $L;
 }
@@ -20,4 +20,4 @@ function E($X, &$E) {
 	return E($X[0][1], $X[0][2]);
 }
 function P($X) { is_array($X) ? print_r($X) : print("$X\n"); }
-function REPL($P, $E=[]) { for(;;) P(E(R($P),$E)); }
+function L($P, $E=[]) { for(;;) P(E(R($P),$E)); }
