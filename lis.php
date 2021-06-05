@@ -7,7 +7,6 @@ function R($P) {
 }
 function AST(&$T) {
 	if(($t = array_shift($T)) != "(") return $t;
-	$L = [];
 	while($T[0] != ")") $L[] = AST($T);
 	array_shift($T);
 	return $L;
