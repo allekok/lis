@@ -7,7 +7,7 @@ function T(&$T) {
 }
 function R($P) {
 	return @T(preg_split(
-		"/\s+/", preg_replace("/(\(|\))/", " $1 ", readline($P)),
+		"/ /", preg_replace("/(\(|\))/", " $1 ", readline($P)),
 		-1, PREG_SPLIT_NO_EMPTY));
 }
 function E($X, &$E) {
