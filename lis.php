@@ -6,9 +6,8 @@ function T(&$T) {
 	return $L;
 }
 function R($P) {
-	return @T(preg_split(
-		"/ /", preg_replace("/(\(|\))/", " $1 ", readline($P)),
-		-1, PREG_SPLIT_NO_EMPTY));
+	return @T(preg_split("/ /", preg_replace(
+		"/(\(|\))/", " $1 ", readline($P)), -1, 1));
 }
 function E($X, &$E) {
 	if(!is_array($X))
