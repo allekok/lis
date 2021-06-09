@@ -5,10 +5,7 @@ function T(&$T) {
 	array_shift($T);
 	return $L;
 }
-function R($P) {
-	return @T(preg_split("/ /", preg_replace(
-		"/(\(|\))/", " $1 ", readline($P)), -1, 1));
-}
+function R($P) { return @T(preg_split("/(\(|\))| /", readline($P), -1, 3)); }
 function E($X, &$E) {
 	if(!is_array($X))
 		return @$E[$X] ? $E[$X] : (@$E[".."] ? E($X, $E[".."]) : $X);
