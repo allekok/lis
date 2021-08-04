@@ -10,7 +10,7 @@ for(;;)echo print_r(E(@T(preg_split("/(\(|\))| /",readline(),-1,3)),$E),1),"\n";
 
 <div dir=rtl>
 
-# تاوتۆکەرێکی بچووکی لیسپ لە ٥٢٦ پیت‌دا بە ژمانی Javascript
+# تاوتۆکەرێکی بچووکی لیسپ لە ٥٢٦ پیت‌دا بە زمانی Javascript
 
 </div>
 
