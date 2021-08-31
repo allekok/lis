@@ -8,3 +8,4 @@
 (= cons (^ (x y) (^ (f) (f x y))))
 (= car (^ (c) (c (^ (x y) x))))
 (= cdr (^ (c) (c (^ (x y) y))))
+(= eq? (^ (x y) (x y (y x true))))
