@@ -2,12 +2,12 @@
 
 # تاوتۆکەرێکی بچووکی لیسپ
 ## `PHP`
-ئەژماری پیتەکان: ٣٦٤
+ئەژماری پیتەکان: ٣٥٧
 
 </div>
 
 ```
-eval(str_replace(['<','%','#'],['function ','return ','array_shift($T)'],'for(;;)echo print_r(E(@T(preg_split("/(\(|\))| /",readline(),-1,3)),$E),1),"\n";<T(&$T){if(($t=#)!="(")%$t;for(;$T[0]!=")";$L[]=T($T));#;%$L;}<E($X,&$E){if(!is_array($X))%isset($E[$X])?$E[$X]:$X;if("^"==$X[0])%$X;$P=E($X[0],$E);foreach($P[1]as$i=>$f)$E[$f]=E($X[$i+1],$E);%E($P[2],$E);}'));
+for(;;)echo print_r(E(@T(preg_split("/(\(|\))| /",readline(),-1,3)),$E),1),"\n";function T(&$T){if(($t=array_shift($T))!="(")return$t;for(;$T[0]!=")";$L[]=T($T));array_shift($T);return$L;}function E($X,&$E){if(!is_array($X))return isset($E[$X])?$E[$X]:$X;if("^"==$X[0])return$X;$P=E($X[0],$E);foreach($P[1]as$i=>$f)$E[$f]=E($X[$i+1],$E);return E($P[2],$E);}
 ```
 
 <div dir=rtl>
