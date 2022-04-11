@@ -13,10 +13,10 @@ for(;;print_r([E(T(preg_split("/(\(|\))| /",readline(),-1,3)))]));function T($T,
 <div dir=rtl>
 
 ## `Javascript`
-ئەژماری پیتەکان: ٣٩٦
+ئەژماری پیتەکان: ٣٩٢
 
 </div>
 
 ```
-I=require('readline');r=I.createInterface({input:process.stdin});N=[];L=_=>r.question('',S=>{console.log(E(T(S.split(/(\(|\))| /).filter(_=>_)),N));L()});T=A=>{if((t=A.shift())!='(')return t;let B=[];while(A[0]!=')')B.push(T(A));A.shift();return B};E=(X,N)=>{if(!Array.isArray(X))return X in N?N[X]:X;if(X[0]=='^')return X;F=E(X.shift(),N);for(i in F[1])N[F[1][i]]=E(X[i],N);return E(F[2],N)};L()
+I=require('readline');r=I.createInterface({input:process.stdin});N=[];L=_=>r.question('',S=>{console.log(E(T(S.split(/(\(|\))| /).filter(_=>_)),N));L()});T=A=>{if((t=A.shift())!='(')return t;let B=[];for(;A[0]!=')';B.push(T(A)));A.shift();return B};E=(X,N)=>{if(!Array.isArray(X))return N[X]?N[X]:X;if(X[0]=='^')return X;F=E(X[0],N);for(i in F[1])N[F[1][i]]=E(X[+i+1],N);return E(F[2],N)};L()
 ```
